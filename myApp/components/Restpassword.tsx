@@ -1,28 +1,19 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, ImageBackground, TextInput, Pressable} from 'react-native'
-
-import image from "../assets/images/img1.jpeg"
 import axios from 'axios';
 
-const Register = () =>{
-    const [firstname, setFirstname] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+import image3 from "../assets/images/img3.jpeg"
 
-    function register(firstname, lastname, username, email, password){
+const Restpassword = () => {
+    const [email,setEmail] = useState("")
+    function resetpassword(email){
         var data = JSON.stringify({
-            "firstname": firstname,
-            "lastname": lastname,
-            "password": password,
-            "username": username,
             "email": email
         });
-    
+
         var config = {
             method: 'post',
-            url: 'http://api.pote.dev/users',
+            url: 'https://api.pote.dev/auth/forgot_password',
             headers: { 
                 'Content-Type': 'application/json'
             },
@@ -37,22 +28,20 @@ const Register = () =>{
             console.log(error.response.data);
         });
     }
+    
     return(
         <View style={styles.formView}>
-            <ImageBackground source={image} style={styles.header}>
-                <Text style={styles.fontHeader}>REGISTER</Text>
+            <ImageBackground source={image3} style={styles.header}>
+                <Text style={styles.fontHeader}>FORGOT PASSWORD</Text>
             </ImageBackground>
             <View style={styles.containerForm}>
-                <TextInput style={styles.input} onChangeText={setFirstname} value={firstname} placeholder="firstname" />
-                <TextInput style={styles.inputLeft} onChangeText={setLastname} value={lastname} placeholder="lastname" />
-                <TextInput style={styles.input} onChangeText={setUsername} value={username} placeholder="username" />
-                <TextInput style={styles.inputLeft} onChangeText={setEmail} value={email} placeholder="email" textContentType="emailAddress" />
-                <TextInput style={styles.input} onChangeText={setPassword} value={password} placeholder="password" textContentType="password" />
-                <Pressable onPress={()=>(register(firstname, lastname, username, email, password))}><Text>Submit</Text></Pressable>
+                <TextInput style={styles.input} onChangeText={setEmail} value={email} placeholder="email" textContentType="emailAddress" />
+                <Pressable onPress={()=>(resetpassword(email))}><Text>Submit</Text></Pressable>
             </View>
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     formView: {
         flex: 1,
@@ -98,6 +87,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginLeft: 50
-    }  
-})
-export default Register
+    }
+  })
+export default Restpassword
