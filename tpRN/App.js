@@ -10,10 +10,10 @@ import Home from "./components/Home"
 import Profile from './components/Profile'
 import Search from './components/Search'
 
-
+import {ConectedReducer, isConected} from "./reducers/ConectedReducer"
 
 const App = () => {
-  const [isConected, setIsConnected] = useState(false)
+  
   return (
     (!isConected)?
     <NativeRouter>

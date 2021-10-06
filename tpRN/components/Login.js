@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, ImageBackground, TextInput, Pressable} from 'react-native'
 import { NativeRouter, Route, Link } from "react-router-native";
+import axios from 'axios';
 
 import image from "../assets/images/img2.jpeg"
-import axios from 'axios';
+import {ConectedReducer, isConected} from "../reducers/ConectedReducer"
 
 
 const Login = () =>{
     const [email, setEmail] = useState("amine.hadef.dev2@gmail.com");
     const [password, setPassword] = useState("amineaaa");
+    const [isConectedStat, setIsConectedStat] = useState(isConected)
+
     //const [submit, onSubmit] = useState(false);
     function login(email, password){
         var data = JSON.stringify({
@@ -42,7 +45,10 @@ const Login = () =>{
                 <TextInput style={styles.inputLeft} onChangeText={setEmail} value={email} placeholder="email" textContentType="emailAddress" />
                 <TextInput style={styles.input} onChangeText={setPassword} value={password} placeholder="password" textContentType="password" />
 
-                <Link to="/home" onPress={()=>(login(email, password))}>
+                <Link to="/home" onPress={()=>{
+                    login(email, password)
+                    setIsConectedStat(<ConectedReducer action="CONECTED"/>)
+                }}>
                     <Text style={styles.txtLink}>Submit</Text>
                 </Link>
 
